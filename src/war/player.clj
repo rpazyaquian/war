@@ -8,7 +8,7 @@
 (defn play-war-card [player]
   (let [{:keys [deck]} player
         war-card-and-deck (split-at 1 deck)
-        war-card (first war-card-and-deck)
+        war-card (first (first war-card-and-deck))
         new-deck (last war-card-and-deck)]
     (-> player
         (assoc :war-card war-card)
@@ -50,7 +50,7 @@
   (let [winner (:winner players)
         winner-wagers (:wagers winner)
         winner-deck (:deck winner)
-        new-winner-deck (conj winner-deck winner-wagers)
+        new-winner-deck (concat winner-deck winner-wagers)
         new-winner (-> winner
                        (assoc :deck new-winner-deck))]
     (-> players
@@ -69,7 +69,7 @@
         new-deck (last split-deck)]
     (-> player
         (assoc :deck new-deck)
-        (assoc :wagers (conj wagers wagers-to-add)))))
+        (assoc :wagers (concat wagers wagers-to-add)))))
 
 (defn beats [winner loser]
   (let [players {:winner winner
