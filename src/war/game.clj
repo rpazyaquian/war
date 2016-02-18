@@ -41,15 +41,6 @@
         (assoc :player-1 new-player-1)
         (assoc :player-2 new-player-2))))
 
-(defn resolve-war-cards [game-state]
-  (let [{:keys [player-1 player-2]} game-state
-        war-card-1 (:war-card player-1)
-        war-card-2 (:war-card player-2)]
-    (cond
-      (> (:value war-card-1) (:value war-card-2)) (player-1-wins game-state)
-      (< (:value war-card-1) (:value war-card-2)) (player-2-wins game-state)
-      (= (:value war-card-1) (:value war-card-2)) (start-war game-state))))
-
 (defn player-1-wins [game-state]
   (let [{:keys [player-1 player-2]} game-state
         new-players (p/beats player-1 player-2)
@@ -73,6 +64,15 @@
     (-> game-state
         (assoc :player-1 new-player-1)
         (assoc :player-2 new-player-2))))
+
+(defn resolve-war-cards [game-state]
+  (let [{:keys [player-1 player-2]} game-state
+        war-card-1 (:war-card player-1)
+        war-card-2 (:war-card player-2)]
+    (cond
+      (> (:value war-card-1) (:value war-card-2)) (player-1-wins game-state)
+      (< (:value war-card-1) (:value war-card-2)) (player-2-wins game-state)
+      (= (:value war-card-1) (:value war-card-2)) (start-war game-state))))
 
 (defn tick [game-state]
   ; first, have each player play a war card.
