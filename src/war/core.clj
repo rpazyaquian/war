@@ -1,6 +1,7 @@
 (ns war.core
   (:require [quil.core :as q]
-            [quil.middleware :as m]))
+            [quil.middleware :as m]
+            [war.game :as g]))
 
 (defn setup []
   ; Set frame rate to 30 frames per second.
@@ -33,8 +34,8 @@
       (q/ellipse x y 100 100))))
 
 (q/defsketch war
-  :title "You spin my circle right round"
-  :size [500 500]
+  :title "War"
+  :size [640 480]
   ; setup function called only once, during sketch initialization.
   :setup setup
   ; update-state is called on each iteration before draw-state.
