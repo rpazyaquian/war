@@ -1,9 +1,9 @@
 (ns war.player)
 
-(defrecord Player [name order deck war-card wagers])
+(defrecord Player [name order deck war-card last-war-card wagers])
 
 (defn make-player [name order deck]
-  (->Player name order deck nil []))  ; no one has any war cards or wagers at first
+  (->Player name order deck nil nil []))  ; no one has any war cards or wagers at first
 
 (defn play-war-card [player]
   (let [{:keys [deck]} player
@@ -12,6 +12,7 @@
         new-deck (last war-card-and-deck)]
     (-> player
         (assoc :war-card war-card)
+        (assoc :last-war-card war-card)
         (assoc :deck new-deck))))
 
 (defn war-card-to-wagers [player]

@@ -16,6 +16,10 @@
   (g/tick state))
 
 (defn draw-state [state]
+  ; Clear the sketch by filling it with light-grey color.
+  (q/background 240)
+  (println (:player-1 state))
+  ;(let [{:keys [player-1 player-2]} state])
   state)
 
 (q/defsketch war
