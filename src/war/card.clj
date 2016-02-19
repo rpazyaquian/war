@@ -7,11 +7,7 @@
   [{:suit "Spades"
     :color :black}
    {:suit "Hearts"
-    :color :red}
-   {:suit "Diamonds"
-    :color :red}
-   {:suit "Clubs"
-    :color :black}])
+    :color :red}])
 
 (def faces
   [{:face "Two"
@@ -51,6 +47,9 @@
     (->Card suit color face value)))
 
 (def deck
-  (map #(make-card %) suits-faces))
+  (map make-card suits-faces))
 
-; hi!
+(defn cut-deck [deck]
+  (->> deck
+      (shuffle)
+      (partition (/ (count combos) 2))))

@@ -1,7 +1,8 @@
 (ns war.core
   (:require [quil.core :as q]
             [quil.middleware :as m]
-            [war.game :as g]))
+            [war.game :as g]
+            [war.render :as r]))
 
 (defn setup []
   ; Set frame rate to 30 frames per second.
@@ -17,9 +18,9 @@
 
 (defn draw-state [state]
   ; Clear the sketch by filling it with light-grey color.
-  (q/background 240)
-  (println (:player-1 state))
-  ;(let [{:keys [player-1 player-2]} state])
+  (q/background 255)
+  ; (r/text-render state)
+  ; (r/render state)
   state)
 
 (q/defsketch war
