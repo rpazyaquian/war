@@ -21,7 +21,7 @@
   (q/background 255)
   ; (r/text-render state)
   ; (r/render state)
-  state)
+  (r/render state))
 
 (q/defsketch war
   :title "War"
