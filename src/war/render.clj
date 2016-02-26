@@ -103,8 +103,8 @@
     (render-deck id deck)
     (render-card id card)))
 
-(defn render-players [game-state]
-  (dorun (map #(render-player %) game-state))
+(defn render-players [{:keys [players] :as game-state}]
+  (dorun (map #(render-player %) players))
   game-state)
 
 (defn render-state [game-state]
