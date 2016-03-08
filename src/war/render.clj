@@ -61,16 +61,6 @@
    13 "resources/sprites/cards/diamonds/diamonds-king.png"
    14 "resources/sprites/cards/diamonds/diamonds-ace.png"})
 
-(def card-images
-  {:spades spades-cards
-   :hearts hearts-cards
-   :diamonds diamonds-cards
-   :clubs clubs-cards})
-
-(def back-src "resources/sprites/cards/back.png")
-
-(def base-src　"resources/sprites/cards/base.png")
-
 (def positions
   {:p1 {:deck {:x 30
                :y 30}
@@ -81,30 +71,30 @@
         :card {:x 230
                :y 300}}})
 
-(defn image-for-card [{:keys [suit face]}]
-  (let [card-src (get-in card-images [suit face])]
-    (q/load-image card-src)))
+(defn image-for-card [{:keys [suit face]} images]
+  (get-in images [suit face]))
 
-(defn image-for-deck [deck]
+(defn image-for-deck [deck images]
   (if (empty? deck)
-    (q/load-image base-src)
-    (q/load-image back-src)))
+    (:base images)
+    (:back images)))
 
-(defn render-card [id card]
+(defn render-card [id card images]
   (let [{:keys [x y]} (get-in positions [id :card])]
-    (q/image (image-for-card card) x y 100 140)))
+    (q/image (image-for-card card images) x y 100 140)))
 
-(defn render-deck [id deck]
+(defn render-deck [id deck images]
   (let [{:keys [x y]} (get-in positions [id :deck])]
-    (q/image (image-for-deck deck) x y 100 140)))
+    (q/image (image-for-deck deck images) x y 100 140)))
 
-(defn render-player [player]
+(defn render-player [player images]
   (let [{:keys [deck card id]} player]
-    (render-deck id deck)
-    (render-card id card)))
+    (render-deck id deck images)
+    (if (not (nil? card))
+      (render-card id card images))))
 
-(defn render-players [{:keys [players] :as game-state}]
-  (dorun (map #(render-player %) players))
+(defn render-players [{:keys [players images] :as game-state}]
+  (dorun (map #(render-player % images) players))
   game-state)
 
 (defn render-state [game-state]
