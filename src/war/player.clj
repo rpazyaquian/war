@@ -1,2 +1,11 @@
 (ns war.player
-  (:require [clojure.lang.PersistentQueue :as queue]))
+  (:require [war.render :as r]
+            [war.deck :as d]
+            [war.card :as c]
+            [quil.core :as q]))
+
+(defrecord Player [id deck cards]
+  r/Render
+  (render [this]
+          (d/render (:deck this))
+          (doseq (map c/render (:cards this)))))
